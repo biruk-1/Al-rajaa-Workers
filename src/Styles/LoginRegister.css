@@ -1,0 +1,89 @@
+/* Shared styles for Login and Register pages */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .auth-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #005555;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .auth-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #005555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .auth-btn:hover {
+    background-color: #0077cc;
+  }
+  
+  .auth-text {
+    margin-top: 15px;
+  }
+  
+  .auth-link {
+    color: #00aaff;
+    text-decoration: none;
+  }
+  
+  .auth-link:hover {
+    text-decoration: underline;
+  }
+  
+  .forgot-password {
+    display: inline-block;
+    margin-top: 10px;
+    text-align: right;
+    width: 100%;
+    font-size: 0.9em;
+    color: #00aaff;
+  }
+  
+  .role-selection {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+  
+  .role-selection label {
+    margin-left: 5px;
+  }
+  
