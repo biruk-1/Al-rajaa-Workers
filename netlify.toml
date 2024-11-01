@@ -1,3 +1,8 @@
+[[build]]
+  command = "npm run build"
+  publish = "public"
+  base = "public"
+  
 [[redirects]]
   from = "/*"
   to = "/404.html"
