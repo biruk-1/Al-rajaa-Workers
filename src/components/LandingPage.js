@@ -48,7 +48,7 @@ const LandingPage = () => {
       <section className="location-section">
         <h2>Location</h2>
         <div className="map-image">
-          <img src="images/map.jpg" alt="Map" />
+          <img src="/map.jpg" alt="Map" />
         </div>
       </section>
 

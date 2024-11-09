@@ -23,7 +23,7 @@ const Footer = () => {
         <div className="footer-contact">
           <p>Email: info@alhijra.com</p>
           <p>Phone: +123-456-7890</p>
-          <p>© 2024 Al-Hijra Recruitment Agency</p>
+          <p>© 2024 Al-rajaa Recruitment Agency</p>
         </div>
       </div>
     </footer>
