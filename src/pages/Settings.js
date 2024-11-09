@@ -7,10 +7,13 @@ const Settings = () => {
   const [settings, setSettings] = useState({
     appName: '',
     appVersion: '',
-    // Add more settings fields as needed
+    userName: '',
+    userEmail: '',
+    password: '',
   });
   const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const getSettings = async () => {
@@ -32,9 +35,15 @@ const Settings = () => {
   };
 
   const handleSubmit = async () => {
-    await updateSettings(settings);
-    setSuccessMessage('Settings updated successfully!');
-    setTimeout(() => setSuccessMessage(''), 3000); // Clear message after 3 seconds
+    try {
+      await updateSettings(settings); // Update both app settings and user profile/password
+      setSuccessMessage('Settings updated successfully!');
+      setErrorMessage('');
+      setTimeout(() => setSuccessMessage(''), 3000); // Clear message after 3 seconds
+    } catch (error) {
+      setErrorMessage('Error updating settings. Please try again.');
+      setSuccessMessage('');
+    }
   };
 
   return (
@@ -44,6 +53,34 @@ const Settings = () => {
         <Typography>Loading...</Typography>
       ) : (
         <Box>
+          {/* Update profile fields */}
+          <TextField
+            label="User Name"
+            name="userName"
+            value={settings.userName}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="User Email"
+            name="userEmail"
+            value={settings.userEmail}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="New Password"
+            type="password"
+            name="password"
+            value={settings.password}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+          />
+
+          {/* Update app settings fields */}
           <TextField
             label="App Name"
             name="appName"
@@ -60,12 +97,13 @@ const Settings = () => {
             fullWidth
             margin="normal"
           />
-          {/* Add more settings fields here */}
-          
+
           <Button variant="contained" color="primary" onClick={handleSubmit}>
             Save Settings
           </Button>
+
           {successMessage && <Typography color="success.main">{successMessage}</Typography>}
+          {errorMessage && <Typography color="error.main">{errorMessage}</Typography>}
         </Box>
       )}
     </Box>

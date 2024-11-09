@@ -63,6 +63,38 @@ body {
   background-color: #ff5733;
 }
 
+/* Hamburger Menu Styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger .bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  border-radius: 3px;
+}
+
+.navbar-list {
+  display: flex;
+  gap: 25px;
+}
+
+.navbar-list.open {
+  display: block;
+}
+
+.navbar-list li {
+  display: inline-block;
+}
+
+.navbar-list li a {
+  padding: 12px 20px;
+}
+
 /* Hero Section */
 .hero-section {
   width: 100%;
@@ -176,14 +208,26 @@ footer {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .navbar ul {
+    display: none;
     flex-direction: column;
     gap: 15px;
+    padding: 0;
+    width: 100%;
+    background-color: #00aaff;
+    position: absolute;
+    top: 70px; /* Adjust depending on header height */
+    left: 0;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .navbar-list.open {
+    display: block;
+  }
+
+  .hamburger {
+    display: flex;
   }
 
   .register-btn {

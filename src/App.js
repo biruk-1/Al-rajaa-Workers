@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+// Components and Pages
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import Dashboard from './pages/Dashboard';
-import SponsorManagement from './pages/SponsorManagement';
-import WorkerManagement from './pages/WorkerManagement';
-import PaymentManagement from './pages/paymentManagment';
-import './App.css';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
+import Dashboard from './pages/Dashboard';
+import SponsorManagement from './pages/SponsorManagement';
+import SponsorDetails from './pages/SponsorDetails';
+import WorkerManagement from './pages/WorkerManagement';
+import WorkersDetail from './pages/WorkersDetail';
+import PaymentManagement from './pages/paymentManagment';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 import HelpSupport from './pages/HelpSupport';
+
+// Services and Context
 import { LanguageProvider } from './LanguageContext';
 import { auth } from './services/Firebase';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
+// Styles
+import './App.css';
+
+// ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -73,6 +82,34 @@ function App() {
                   <div className="main-content">
                     <Header />
                     <SponsorManagement />
+                  </div>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/worker/:id"
+            element={
+              <ProtectedRoute>
+                <div className="app-layout">
+                  {!isMobile && <Sidebar />}
+                  <div className="main-content">
+                    <Header />
+                    <WorkersDetail />
+                  </div>
+                </div>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/sponsor/:id"
+            element={
+              <ProtectedRoute>
+                <div className="app-layout">
+                  {!isMobile && <Sidebar />}
+                  <div className="main-content">
+                    <Header />
+                    <SponsorDetails />
                   </div>
                 </div>
               </ProtectedRoute>

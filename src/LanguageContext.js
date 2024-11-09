@@ -1,5 +1,4 @@
-// src/LanguageContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 // Create LanguageContext
 const LanguageContext = createContext();
@@ -19,7 +18,6 @@ const translations = {
       paymentsDue: "Payments Due",
       chartTitle: "Sponsors and Workers Over Time",
     },
-    
     sponsorManagement: {
       title: "Sponsor Management",
       addSponsor: "Add Sponsor",
@@ -102,77 +100,38 @@ const translations = {
       workerName: "اسم العامل",
       nationality: "الجنسية",
       arrivalDate: "تاريخ الوصول",
-      financialDetails: "تفاصيل مالية",
+      financialDetails: "التفاصيل المالية",
       additionalInfo: "معلومات إضافية",
-      actions: "إجراءات",
+      actions: "الإجراءات",
       editWorker: "تعديل العامل",
       cancel: "إلغاء",
-      submitChanges: "تقديم التغييرات",
+      submitChanges: "إرسال التغييرات",
       allNationalities: "جميع الجنسيات",
     },
   },
 };
 
-// LanguageProvider Component
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState('en');
 
   const toggleLanguage = () => {
-    setLanguage((prev) => (prev === 'en' ? 'ar' : 'en'));
+    setLanguage((prevLanguage) => (prevLanguage === 'en' ? 'ar' : 'en'));
   };
 
+  // Ensuring translations are available
+  const getTranslations = (language) => {
+    return translations[language] || translations.en; // fallback to 'en' if undefined
+  };
+
+  const value = { language, toggleLanguage, translations: getTranslations(language) };
+
   return (
-    <LanguageContext.Provider value={{ language, toggleLanguage, translations }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
 };
 
-// Custom Hook to use Language Context
 export const useLanguage = () => {
   return useContext(LanguageContext);
-};
-
-// Worker Management Component
-export const WorkerManagement = () => {
-  const { language, translations } = useLanguage();
-  const currentTranslations = translations[language]?.workerManagement; // Safely accessing translations
-
-  return (
-    <div>
-      <h1>{currentTranslations?.title || "Default Title"}</h1>
-      <button>{currentTranslations?.addWorker}</button>
-      {/* Display worker data in a table or form */}
-    </div>
-  );
-};
-
-// Sponsor Management Component
-export const SponsorManagement = () => {
-  const { language, translations } = useLanguage();
-  const currentTranslations = translations[language]?.sponsorManagement; // Safely accessing translations
-
-  return (
-    <div>
-      <h1>{currentTranslations?.title || "Default Title"}</h1>
-      <button>{currentTranslations?.addSponsor}</button>
-      {/* Display sponsor data in a table or form */}
-      <table>
-        <thead>
-          <tr>
-            <th>{currentTranslations?.tableHeaders.name}</th>
-            <th>{currentTranslations?.tableHeaders.contractNumber}</th>
-            <th>{currentTranslations?.tableHeaders.visaArrivalDate}</th>
-            <th>{currentTranslations?.tableHeaders.country}</th>
-            <th>{currentTranslations?.tableHeaders.financialDetails}</th>
-            <th>{currentTranslations?.tableHeaders.additionalInfo}</th>
-            <th>{currentTranslations?.tableHeaders.actions}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* Add rows for each sponsor */}
-        </tbody>
-      </table>
-    </div>
-  );
 };

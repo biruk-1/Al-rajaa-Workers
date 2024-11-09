@@ -8,10 +8,12 @@ import ReportIcon from '@mui/icons-material/Assessment';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../LanguageContext'; // Import the useLanguage hook
 
 const Sidebar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isDesktop = useMediaQuery('(min-width:900px)');
+  const { language, translations } = useLanguage(); // Get language and translations
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -36,15 +38,15 @@ const Sidebar = () => {
       </IconButton>
       <Divider sx={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', margin: '10px 0' }} />
       <List>
-        {[
-          { text: 'Dashboard', icon: <HomeIcon />, link: '/dashboard' },
-          { text: 'Sponsor Management', icon: <PeopleIcon />, link: '/sponsors' },
-          { text: 'Worker Management', icon: <WorkIcon />, link: '/workers' },
-          { text: 'Payments', icon: <PaymentIcon />, link: '/payment' },
-          { text: 'Reports', icon: <ReportIcon />, link: '/reports' },
-          { text: 'User Management', icon: <PeopleIcon />, link: '/register' },
-          { text: 'Settings', icon: <WorkIcon />, link: '/settings' },
-          { text: 'Help/Support', icon: <WorkIcon />, link: '/help-support' },
+        {[  
+          { text: translations[language]?.sidebar?.dashboard || "Dashboard", icon: <HomeIcon />, link: '/dashboard' },
+          { text: translations[language]?.sidebar?.sponsorManagement || "Sponsor Management", icon: <PeopleIcon />, link: '/sponsors' },
+          { text: translations[language]?.sidebar?.workerManagement || "Worker Management", icon: <WorkIcon />, link: '/workers' },
+          { text: translations[language]?.sidebar?.payments || "Payments", icon: <PaymentIcon />, link: '/payment' },
+          { text: translations[language]?.sidebar?.reports || "Reports", icon: <ReportIcon />, link: '/reports' },
+          { text: translations[language]?.sidebar?.userManagement || "User Management", icon: <PeopleIcon />, link: '/register' },
+          { text: translations[language]?.sidebar?.settings || "Settings", icon: <WorkIcon />, link: '/settings' },
+          { text: translations[language]?.sidebar?.helpSupport || "Help/Support", icon: <WorkIcon />, link: '/help-support' },
         ].map((item, index) => (
           <ListItem
             button
