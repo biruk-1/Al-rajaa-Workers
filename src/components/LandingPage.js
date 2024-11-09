@@ -23,7 +23,7 @@ const LandingPage = () => {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-overlay">
-          <h1>Welcome to Al-Hijaz Recruitment Agency</h1>
+          <h1>Welcome to Al-Rajaa Recruitment Agency</h1>
           <p>Connecting skilled professionals globally</p>
           <Link to="/register" className="cta-btn">Register</Link>
         </div>
