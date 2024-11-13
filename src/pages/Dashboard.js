@@ -1,3 +1,4 @@
+// src/pages/Dashboard.js
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -31,8 +32,6 @@ const Dashboard = () => {
 
   const { translations, language } = useLanguage(); // Get translations and current language
 
-  const [pendingVisas, setPendingVisas] = useState(0);
-  const [paymentsDue, setPaymentsDue] = useState(0);
   // Fetch data from Firestore
   useEffect(() => {
     const loadDashboardData = async () => {
@@ -44,13 +43,13 @@ const Dashboard = () => {
         setSponsorCount(sponsors.length);
         setWorkerCount(totalWorkers.length);
 
-        // Assuming you have logic in Firebase to combine workers and sponsors
+        // Combine workers and sponsors
         const combinedData = totalWorkers.map(worker => {
           const sponsor = sponsors.find(s => s.id === worker.sponsorId); // Assuming `sponsorId` is used in Worker data
           return {
             id: worker.id, // Store worker ID for editing
             workerName: worker.name,
-            sponsorName: sponsor ? sponsor.name : 'Unknown', // If sponsor exists, show their name
+            sponsorName: sponsor ? sponsor.name : translations?.[language]?.dashboard?.unknown || 'Unknown', // If sponsor exists, show their name
             country: worker.country,
             amountPaid: worker.amountPaid, // Assuming amountPaid exists in Worker data
             admin: worker.admin, // Assuming admin saved this
@@ -65,7 +64,7 @@ const Dashboard = () => {
     };
 
     loadDashboardData();
-  }, []);
+  }, [language]); // Add language as a dependency to re-fetch data when language changes
 
   // Open the edit dialog with the selected worker's data
   const handleEditClick = (worker) => {
@@ -100,8 +99,7 @@ const Dashboard = () => {
         gutterBottom 
         sx={{ fontWeight: 'bold', color: '#333', marginBottom: '20px' }}
       >
-        {/* Use translation with fallback */}
-        {translations?.[language]?.dashboard?.title || 'App Title'}
+        {translations?.[language]?.dashboard?.title || 'Dashboard Overview'}
       </Typography>
 
       {/* Summary Stats */}
@@ -109,7 +107,6 @@ const Dashboard = () => {
         <Grid item xs={12} sm={6} md={3}>
           <Paper elevation={3} sx={{ padding: 2, backgroundColor: '#fff', boxShadow: 5, borderRadius: 2 }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#555' }}>
-              {/* Use translation with fallback */}
               {translations?.[language]?.dashboard?.totalSponsors || 'Total Sponsors'}
             </Typography>
             <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1a73e8' }}>
@@ -120,7 +117,6 @@ const Dashboard = () => {
         <Grid item xs={12} sm={6} md={3}>
           <Paper elevation={3} sx={{ padding: 2, backgroundColor: '#fff', boxShadow: 5, borderRadius: 2 }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#555' }}>
-              {/* Use translation with fallback */}
               {translations?.[language]?.dashboard?.totalWorkers || 'Total Workers'}
             </Typography>
             <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1a73e8' }}>
@@ -131,22 +127,22 @@ const Dashboard = () => {
         <Grid item xs={12} sm={6} md={3}>
           <Paper elevation={3} sx={{ padding: 2, backgroundColor: '#fff', boxShadow: 5, borderRadius: 2 }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#555' }}>
-              {/* Use translation with fallback */}
               {translations?.[language]?.dashboard?.pendingVisas || 'Pending Visas'}
             </Typography>
             <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1a73e8' }}>
-              {pendingVisas}
+              {/* Replace with actual pending visas count if available */}
+              0
             </Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Paper elevation={3} sx={{ padding: 2, backgroundColor: '#fff', boxShadow: 5, borderRadius: 2 }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#555' }}>
-              {/* Use translation with fallback */}
               {translations?.[language]?.dashboard?.paymentsDue || 'Payments Due'}
             </Typography>
             <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1a73e8' }}>
-              ${paymentsDue}
+              {/* Replace with actual payments due count if available */}
+              0
             </Typography>
           </Paper>
         </Grid>
@@ -154,39 +150,28 @@ const Dashboard = () => {
 
       {/* Table Section */}
       <Typography variant="h5" gutterBottom sx={{ mt: 4, fontWeight: 'bold', color: '#333' }}>
-        {/* Use translation with fallback */}
         {translations?.[language]?.dashboard?.workerSponsorData || 'Worker & Sponsor Data'}
       </Typography>
-      <Typography variant="body1" color="textSecondary" sx={{ mb: 3 }}>
-        This table indicates the pairing of sponsors and workers, including payment details and the admin responsible for saving the data.
-      </Typography>
-
       <TableContainer component={Paper} sx={{ mb: 4, boxShadow: 5 }}>
         <Table aria-label="worker-sponsor-table">
           <TableHead>
             <TableRow sx={{ backgroundColor: '#1a73e8' }}>
               <TableCell sx={{ fontWeight: 'bold', color: '#fff' }}>
-                {/* Use translation with fallback */}
                 {translations?.[language]?.dashboard?.sponsorName || 'Sponsor Name'}
               </TableCell>
               <TableCell sx={{ fontWeight: 'bold', color: '#fff' }}>
-                {/* Use translation with fallback */}
                 {translations?.[language]?.dashboard?.workerName || 'Worker Name'}
               </TableCell>
               <TableCell sx={{ fontWeight: 'bold', color: '#fff' }}>
-                {/* Use translation with fallback */}
                 {translations?.[language]?.dashboard?.country || 'Country'}
               </TableCell>
               <TableCell sx={{ fontWeight: 'bold', color: '#fff' }}>
-                {/* Use translation with fallback */}
                 {translations?.[language]?.dashboard?.amountPaid || 'Amount Paid'}
               </TableCell>
               <TableCell sx={{ fontWeight: 'bold', color: '#fff' }}>
-                {/* Use translation with fallback */}
                 {translations?.[language]?.dashboard?.admin || 'Admin'}
               </TableCell>
               <TableCell sx={{ fontWeight: 'bold', color: '#fff' }}>
-                {/* Use translation with fallback */}
                 {translations?.[language]?.dashboard?.edit || 'Edit'}
               </TableCell>
             </TableRow>
@@ -237,7 +222,6 @@ const Dashboard = () => {
                 <TableCell>{row.admin}</TableCell>
                 <TableCell>
                   <Button variant="outlined" size="small" sx={{ textTransform: 'none', borderColor: '#1a73e8', color: '#1a73e8' }} onClick={() => handleEditClick(row)}>
-                    {/* Use translation with fallback */}
                     {translations?.[language]?.dashboard?.edit || 'Edit'}
                   </Button>
                 </TableCell>
@@ -249,12 +233,12 @@ const Dashboard = () => {
 
       {/* Edit Dialog */}
       <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
-        <DialogTitle>Edit Worker</DialogTitle>
+        <DialogTitle>{translations?.[language]?.dashboard?.editWorker || 'Edit Worker'}</DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                label="Worker Name"
+                label={translations?.[language]?.dashboard?.workerName || 'Worker Name'}
                 fullWidth
                 name="workerName"
                 value={currentWorker?.workerName || ''}
@@ -263,7 +247,7 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Sponsor Name"
+                label={translations?.[language]?.dashboard?.sponsorName || 'Sponsor Name'}
                 fullWidth
                 name="sponsorName"
                 value={currentWorker?.sponsorName || ''}
@@ -272,7 +256,7 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Country"
+                label={translations?.[language]?.dashboard?.country || 'Country'}
                 fullWidth
                 name="country"
                 value={currentWorker?.country || ''}
@@ -281,7 +265,7 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Amount Paid"
+                label={translations?.[language]?.dashboard?.amountPaid || 'Amount Paid'}
                 fullWidth
                 name="amountPaid"
                 value={currentWorker?.amountPaid || ''}
@@ -290,7 +274,7 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Admin"
+                label={translations?.[language]?.dashboard?.admin || 'Admin'}
                 fullWidth
                 name="admin"
                 value={currentWorker?.admin || ''}
@@ -300,8 +284,8 @@ const Dashboard = () => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setEditDialogOpen(false)} color="secondary">Cancel</Button>
-          <Button onClick={handleEditSubmit} color="primary">Update</Button>
+          <Button onClick={() => setEditDialogOpen(false)} color="secondary">{translations?.[language]?.dashboard?.cancel || 'Cancel'}</Button>
+          <Button onClick={handleEditSubmit} color="primary">{translations?.[language]?.dashboard?.update || 'Update'}</Button>
         </DialogActions>
       </Dialog>
     </Box>

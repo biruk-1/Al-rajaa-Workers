@@ -1,3 +1,4 @@
+// src/components/Sidebar.js
 import React, { useState } from 'react';
 import { List, ListItem, ListItemIcon, ListItemText, Drawer, Box, IconButton, Divider, useMediaQuery } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
@@ -37,16 +38,18 @@ const Sidebar = () => {
         <CloseIcon />
       </IconButton>
       <Divider sx={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', margin: '10px 0' }} />
+      
+      <img className='logo-image' style={{ marginLeft: "30%", marginTop: "-16%", marginBottom: "20%" }} src="/logo.jpg" alt="Company Logo" /> 
+      
       <List>
         {[  
-          { text: translations[language]?.sidebar?.dashboard || "Dashboard", icon: <HomeIcon />, link: '/dashboard' },
-          { text: translations[language]?.sidebar?.sponsorManagement || "Sponsor Management", icon: <PeopleIcon />, link: '/sponsors' },
-          { text: translations[language]?.sidebar?.workerManagement || "Worker Management", icon: <WorkIcon />, link: '/workers' },
-          { text: translations[language]?.sidebar?.payments || "Payments", icon: <PaymentIcon />, link: '/payment' },
-          { text: translations[language]?.sidebar?.reports || "Reports", icon: <ReportIcon />, link: '/reports' },
-          { text: translations[language]?.sidebar?.userManagement || "User Management", icon: <PeopleIcon />, link: '/register' },
-          { text: translations[language]?.sidebar?.settings || "Settings", icon: <WorkIcon />, link: '/settings' },
-          { text: translations[language]?.sidebar?.helpSupport || "Help/Support", icon: <WorkIcon />, link: '/help-support' },
+          { text: translations.sidebar.dashboard, icon: <HomeIcon />, link: '/dashboard' },
+          { text: translations.sidebar.sponsorManagement, icon: <PeopleIcon />, link: '/sponsors' },
+          { text: translations.sidebar.workerManagement, icon: <WorkIcon />, link: '/workers' },
+          { text: translations.sidebar.payments, icon: <PaymentIcon />, link: '/payment' },
+          { text: translations.sidebar.reports, icon: <ReportIcon />, link: '/reports' },
+          { text: translations.sidebar.settings, icon: <WorkIcon />, link: '/settings' },
+          { text: translations.sidebar.helpSupport, icon: <WorkIcon />, link: '/help-support' },
         ].map((item, index) => (
           <ListItem
             button

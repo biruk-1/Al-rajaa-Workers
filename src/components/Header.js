@@ -1,13 +1,14 @@
+// src/components/Header.js
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Button, Box, Menu, MenuItem } from '@mui/material';
-import LanguageIcon from '@mui/icons-material/Language';
+import { AppBar, Toolbar, Typography, IconButton, Box, Menu, MenuItem, Button } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import LanguageIcon from '@mui/icons-material/Language';
 import { useLanguage } from '../LanguageContext'; // Import the useLanguage hook
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const Header = () => {
-  const { toggleLanguage, translations, language } = useLanguage();
+  const { toggleLanguage, translations } = useLanguage();
   const navigate = useNavigate();
 
   // State for handling profile menu anchor

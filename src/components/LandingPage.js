@@ -1,3 +1,4 @@
+// src/components/LandingPage.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../Styles/LandingPage.css';
@@ -10,11 +11,12 @@ const LandingPage = () => {
       <header className="header">
         <nav className="navbar">
           <ul>
+            <img className='logo-image' src="/logo.jpg" alt="Company Logo" />
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/location">Location</Link></li>
-            <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/contact">Contact Us</Link></li>
+            <li><Link to="#about">About</Link></li> {/* Updated link */}
+            <li><Link to="#location">Location</Link></li> {/* Updated link */}
+          
+            <li><Link to="#contact">Contact</Link></li>
           </ul>
         </nav>
         <Link to="/register" className="register-btn">Register</Link>
@@ -30,7 +32,7 @@ const LandingPage = () => {
       </section>
 
       {/* About Section */}
-      <section className="about-section">
+      <section id="about" className="about-section"> {/* Added id */}
         <div className="about-content">
           <h2>About Us</h2>
           <p>
@@ -45,7 +47,7 @@ const LandingPage = () => {
       </section>
 
       {/* Location Section */}
-      <section className="location-section">
+      <section id="location" className="location-section"> {/* Added id */}
         <h2>Location</h2>
         <div className="map-image">
           <img src="/map.jpg" alt="Map" />

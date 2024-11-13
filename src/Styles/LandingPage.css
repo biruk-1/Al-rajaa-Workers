@@ -27,11 +27,21 @@ body {
   top: 0;
   z-index: 10;
 }
+.logo-image {
+  width: 50px; /* Set a smaller width for the logo */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 25%; /* Rounded corners */
+  margin-right: 65%; /* Space between logo and navigation items */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-left: 3%; /* Optional: Add a subtle shadow for depth */
+  align-content: center;
+  align-items: center;
+}
 
 .navbar ul {
   list-style: none;
   display: flex;
-  gap: 25px;
+  gap: 28px;
   margin: 0;
   padding: 0;
 }
@@ -57,6 +67,7 @@ body {
   border-radius: 5px;
   font-weight: bold;
   transition: all 0.3s ease;
+  margin-right: 3%;
 }
 
 .register-btn:hover {
@@ -241,4 +252,6 @@ footer {
   .about-content, .about-image {
     width: 100%;
   }
+  /* src/Styles/LandingPage.css */
+
 }
